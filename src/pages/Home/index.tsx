@@ -4,13 +4,21 @@ import illustrationsImg from '../../assets/images/illustration.svg';
 import logoImg from '../../assets/images/logo.svg';
 import googleIconImg from '../../assets/images/google-icon.svg';
 
-import '../../styles/auth.scss';
+import { useAuth } from '../../hooks/useAuth';
+
 import { Button } from '../../components/Button';
 
+import '../../styles/auth.scss';
+
 export function Home() {
+  const { signInWithGoogle, user } = useAuth();
   const history = useHistory();
 
-  function navigateToNewRoom() {
+  async function handleCreateRoom() {
+    if (!user) {
+      await signInWithGoogle();
+    }
+
     history.push('rooms/new');
   }
 
@@ -28,7 +36,7 @@ export function Home() {
         <div className="main-content">
           <img src={logoImg} alt="letmeask" />
           <button
-            onClick={navigateToNewRoom}
+            onClick={handleCreateRoom}
             className="create-room"
             type="button"
           >
