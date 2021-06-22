@@ -1,0 +1,38 @@
+
+:root {
+  --background: '#f8f8f8' ;
+}
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+html {
+  @media (max-with: 1000px) {
+    font-size: 93.75%;
+  }
+
+  @media (max-with: 728px) {
+    font-size: 87.5%;
+  }
+}
+
+body {
+  background: var(--background);
+  color: #29292e;
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, button, textarea {
+  font: 400 'Roboto', sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
