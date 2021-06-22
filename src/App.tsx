@@ -1,5 +1,9 @@
+import { Home } from './pages/Home';
+
+import './styles/global.scss';
+
 function App() {
-  return <h1>letmeask</h1>;
+  return <Home />;
 }
 
 export default App;
