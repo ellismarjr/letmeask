@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import { AuthProvider } from './hooks/useAuth';
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/rooms/new" component={NewRoom} />
           <Route path="/rooms/:id" component={Room} />
         </Switch>
+        <Toaster />
       </AuthProvider>
     </BrowserRouter>
   );
