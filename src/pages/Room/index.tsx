@@ -10,8 +10,9 @@ import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../services/firebase';
 
 import './styles.scss';
+import { Question } from '../../components/Question';
 
-type Questions = {
+type QuestionType = {
   id: string;
   author: {
     name: string;
@@ -44,7 +45,7 @@ export function Room() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const [newQuestion, setNewQuestion] = useState('');
-  const [questions, setQuestions] = useState<Questions[]>([]);
+  const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [title, setTitle] = useState('');
 
   async function handleSendQuestion(event: FormEvent) {
@@ -145,6 +146,16 @@ export function Room() {
             </Button>
           </div>
         </form>
+
+        <div className="question-list">
+          {questions.map(question => (
+            <Question
+              key={question.id}
+              author={question.author}
+              content={question.content}
+            />
+          ))}
+        </div>
       </main>
     </div>
   );
