@@ -30,18 +30,21 @@ export function Home() {
   async function handleJoinRoom(event: FormEvent) {
     event.preventDefault();
 
-    if (roomCode.trim() !== '') {
-      const roomRef = await database.ref(`rooms/${roomCode}`).get();
-
-      if (!roomRef.exists()) {
-        toast(
-          `Poxaaa. A sala ${roomCode} não existe no momento. Mas fique triste, entra em outra.`,
-        );
-        return;
-      }
-
-      history.push(`/rooms/${roomCode}`);
+    if (roomCode.trim() === '') {
+      toast(`Você precisa digitar um código de sala válido.`);
+      return;
     }
+
+    const roomRef = await database.ref(`rooms/${roomCode}`).get();
+
+    if (!roomRef.exists()) {
+      toast(
+        `Poxaaa. A sala ${roomCode} não existe no momento. Mas fique triste, entra em outra.`,
+      );
+      return;
+    }
+
+    history.push(`/rooms/${roomCode}`);
   }
 
   return (
