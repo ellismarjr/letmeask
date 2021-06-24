@@ -18,7 +18,7 @@ function App() {
           <Route path="/rooms/new" component={NewRoom} />
           <Route path="/rooms/:id" component={Room} />
         </Switch>
-        <Toaster />
+        <Toaster position="bottom-center" />
       </AuthProvider>
     </BrowserRouter>
   );
