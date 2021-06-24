@@ -1,26 +1,41 @@
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import logoImg from '../../assets/images/logo.svg';
 import deleteImg from '../../assets/images/delete.svg';
 
 import { Button } from '../../components/Button';
 import { RoomCode } from '../../components/RoomCode';
-
 import { Question } from '../../components/Question';
+
 import { useRoom } from '../../hooks/useRoom';
 
-import '../Room/styles.scss';
 import { database } from '../../services/firebase';
+
+import '../Room/styles.scss';
 
 type RoomParams = {
   id: string;
 };
 
 export function AdminRoom() {
+  const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
   const { questions, title } = useRoom(roomId);
+
+  async function handleEndRoom() {
+    await database.ref(`rooms/${roomId}`).update({
+      endedAt: new Date(),
+    });
+
+    history.push('/');
+
+    toast.success(
+      'Sua sala foi encerrada com sucesso! Esperamos que em breve você crie uma nova sala',
+    );
+  }
 
   async function handleDeleteQuestion(questionId: string) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
@@ -33,7 +48,9 @@ export function AdminRoom() {
           <img src={logoImg} alt="Letmeask" />
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined>Encerrar sala</Button>
+            <Button isOutlined onClick={handleEndRoom}>
+              Encerrar sala
+            </Button>
           </div>
         </div>
       </header>
