@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 24px;
+
+  height: 362px;
+  width: 590px;
+
+  border-radius: 8px;
+
+  background: #F8F8F8;
+
+  h1 {
+    margin-top: 24px;
+    color: #29292E;
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  span {
+    margin-top: 12px;
+    color: #737380;
+    font-size: 1rem;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+
+    button {
+      width: 132px;
+      height: 50px;
+
+      border: 0;
+      border-radius: 8px;
+
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .btn-cancel {
+      background: #DBDCDD;
+      color: #737380;
+    }
+
+    .btn-confirm {
+      background: #E73F5D;
+      color: #fefefe;
+    }
+  }
+}
