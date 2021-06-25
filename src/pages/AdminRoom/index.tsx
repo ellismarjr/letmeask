@@ -4,6 +4,8 @@ import toast from 'react-hot-toast';
 import { useCallback, useState } from 'react';
 import logoImg from '../../assets/images/logo.svg';
 import deleteImg from '../../assets/images/delete.svg';
+import checkImg from '../../assets/images/check.svg';
+import answerImg from '../../assets/images/answer.svg';
 
 import { Button } from '../../components/Button';
 import { RoomCode } from '../../components/RoomCode';
@@ -89,6 +91,18 @@ export function AdminRoom() {
               author={question.author}
               content={question.content}
             >
+              <button
+                type="button"
+                onClick={() => handleOpenModalConfirmation(question.id)}
+              >
+                <img src={checkImg} alt="Check question" />
+              </button>
+              <button
+                type="button"
+                onClick={() => handleOpenModalConfirmation(question.id)}
+              >
+                <img src={answerImg} alt="Answer question" />
+              </button>
               <button
                 type="button"
                 onClick={() => handleOpenModalConfirmation(question.id)}
