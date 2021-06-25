@@ -7,12 +7,20 @@ type ModalConfirmationProps = {
   isOpen: boolean;
   onRequestClose: () => void;
   onRequestConfirm: () => void;
+  title: string;
+  message: string;
+  cancelButtonText?: string;
+  confirmButtonText?: string;
 };
 
 export function ModalConfirmation({
   isOpen,
   onRequestClose,
   onRequestConfirm,
+  title,
+  message,
+  cancelButtonText = 'Cancelar',
+  confirmButtonText = 'Sim',
 }: ModalConfirmationProps) {
   return (
     <Modal
@@ -24,19 +32,19 @@ export function ModalConfirmation({
       <div className="container">
         <FiTrash2 size={32} color="#E73F5D" />
 
-        <h1>Encerrar Sala</h1>
-        <span>Tem certeza que você deseja encerrar esta sala?</span>
+        <h1>{title}</h1>
+        <span>{message}</span>
 
         <div className="buttons">
           <button className="btn-cancel" type="button" onClick={onRequestClose}>
-            Cancelar
+            {cancelButtonText}
           </button>
           <button
             className="btn-confirm"
             type="button"
             onClick={onRequestConfirm}
           >
-            Sim, encerrar
+            {confirmButtonText}
           </button>
         </div>
       </div>

@@ -98,6 +98,9 @@ export function AdminRoom() {
         isOpen={isModalConfirmationOpen}
         onRequestClose={handleCloseModalConfirmation}
         onRequestConfirm={() => handleDeleteQuestion(questionSelectedToDelete)}
+        title="Excluir pergunta"
+        message="Tem certeza que você deseja excluir esta pergunta?"
+        confirmButtonText="Sim, excluir"
       />
     </div>
   );
