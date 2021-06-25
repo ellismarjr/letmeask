@@ -24,7 +24,9 @@ export function AdminRoom() {
   const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
-  const [isModalConfirmationOpen, setIsModalConfirmationOpen] = useState(true);
+  const [isModalConfirmationOpen, setIsModalConfirmationOpen] = useState(false);
+  const [isModalConfirmationEndRoomOpen, setIsModalConfirmationEndRoomOpen] =
+    useState(false);
   const [questionSelectedToDelete, setQuestionSelectedToDelete] = useState('');
 
   const { questions, title } = useRoom(roomId);
@@ -56,6 +58,10 @@ export function AdminRoom() {
     setIsModalConfirmationOpen(prevState => !prevState);
   }, []);
 
+  const handleToggleModalConfirmationEndRoom = useCallback(() => {
+    setIsModalConfirmationEndRoomOpen(prevState => !prevState);
+  }, []);
+
   return (
     <div id="page-room">
       <header>
@@ -63,7 +69,7 @@ export function AdminRoom() {
           <img src={logoImg} alt="Letmeask" />
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>
+            <Button isOutlined onClick={handleToggleModalConfirmationEndRoom}>
               Encerrar sala
             </Button>
           </div>
@@ -101,6 +107,15 @@ export function AdminRoom() {
         title="Excluir pergunta"
         message="Tem certeza que você deseja excluir esta pergunta?"
         confirmButtonText="Sim, excluir"
+      />
+
+      <ModalConfirmation
+        isOpen={isModalConfirmationEndRoomOpen}
+        onRequestClose={handleToggleModalConfirmationEndRoom}
+        onRequestConfirm={handleEndRoom}
+        title="Encerrar sala"
+        message="Tem certeza que você deseja encerrar esta sala?"
+        confirmButtonText="Sim, encerrar"
       />
     </div>
   );
