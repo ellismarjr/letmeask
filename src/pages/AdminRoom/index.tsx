@@ -1,6 +1,7 @@
 import { useHistory, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+import { useCallback, useState } from 'react';
 import logoImg from '../../assets/images/logo.svg';
 import deleteImg from '../../assets/images/delete.svg';
 
@@ -13,6 +14,7 @@ import { useRoom } from '../../hooks/useRoom';
 import { database } from '../../services/firebase';
 
 import '../Room/styles.scss';
+import { ModalConfirmation } from '../../components/ModalConfirmation';
 
 type RoomParams = {
   id: string;
@@ -22,6 +24,8 @@ export function AdminRoom() {
   const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
+  const [isModalConfirmationOpen, setIsModalConfirmationOpen] = useState(true);
+  const [questionSelectedToDelete, setQuestionSelectedToDelete] = useState('');
 
   const { questions, title } = useRoom(roomId);
 
@@ -38,8 +42,19 @@ export function AdminRoom() {
   }
 
   async function handleDeleteQuestion(questionId: string) {
+    setIsModalConfirmationOpen(prevState => !prevState);
     await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
   }
+
+  const handleOpenModalConfirmation = useCallback((questionId: string) => {
+    setQuestionSelectedToDelete(questionId);
+    setIsModalConfirmationOpen(prevState => !prevState);
+  }, []);
+
+  const handleCloseModalConfirmation = useCallback(() => {
+    setQuestionSelectedToDelete('');
+    setIsModalConfirmationOpen(prevState => !prevState);
+  }, []);
 
   return (
     <div id="page-room">
@@ -70,7 +85,7 @@ export function AdminRoom() {
             >
               <button
                 type="button"
-                onClick={() => handleDeleteQuestion(question.id)}
+                onClick={() => handleOpenModalConfirmation(question.id)}
               >
                 <img src={deleteImg} alt="Delete question" />
               </button>
@@ -78,6 +93,12 @@ export function AdminRoom() {
           ))}
         </div>
       </main>
+
+      <ModalConfirmation
+        isOpen={isModalConfirmationOpen}
+        onRequestClose={handleCloseModalConfirmation}
+        onRequestConfirm={() => handleDeleteQuestion(questionSelectedToDelete)}
+      />
     </div>
   );
 }
