@@ -3,9 +3,9 @@
 </h1>
 
 ## :computer: Web preview
-<!-- <p align="center">
-  <img height="400" src="https://github.com/ellismarjr/dtmoney/blob/master/preview.gif">
-</p> -->
+<p align="center">
+  <img height="400" src="https://github.com/ellismarjr/letmeask/blob/master/preview.png">
+</p>
 
 
 <h4 align="center">
