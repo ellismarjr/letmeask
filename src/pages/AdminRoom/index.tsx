@@ -105,18 +105,22 @@ export function AdminRoom() {
               isAnswered={question.isAnswered}
               isHightlighted={question.isHightlighted}
             >
-              <button
-                type="button"
-                onClick={() => handleHighlightQuestion(question.id)}
-              >
-                <img src={checkImg} alt="Marcar pergunta como respondida" />
-              </button>
-              <button
-                type="button"
-                onClick={() => handleCheckQuestionAnswered(question.id)}
-              >
-                <img src={answerImg} alt="Dar destaque a pergunta" />
-              </button>
+              {!question.isAnswered && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => handleHighlightQuestion(question.id)}
+                  >
+                    <img src={checkImg} alt="Marcar pergunta como respondida" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleCheckQuestionAnswered(question.id)}
+                  >
+                    <img src={answerImg} alt="Dar destaque a pergunta" />
+                  </button>
+                </>
+              )}
               <button
                 type="button"
                 onClick={() => handleOpenModalConfirmation(question.id)}
