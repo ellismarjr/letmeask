@@ -64,6 +64,18 @@ export function AdminRoom() {
     setIsModalConfirmationEndRoomOpen(prevState => !prevState);
   }, []);
 
+  async function handleCheckQuestionAnswered(questionId: string) {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isAnswered: true,
+    });
+  }
+
+  async function handleHighlightQuestion(questionId: string) {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isHightlighted: true,
+    });
+  }
+
   return (
     <div id="page-room">
       <header>
@@ -90,24 +102,26 @@ export function AdminRoom() {
               key={question.id}
               author={question.author}
               content={question.content}
+              isAnswered={question.isAnswered}
+              isHightlighted={question.isHightlighted}
             >
               <button
                 type="button"
-                onClick={() => handleOpenModalConfirmation(question.id)}
+                onClick={() => handleHighlightQuestion(question.id)}
               >
-                <img src={checkImg} alt="Check question" />
+                <img src={checkImg} alt="Marcar pergunta como respondida" />
+              </button>
+              <button
+                type="button"
+                onClick={() => handleCheckQuestionAnswered(question.id)}
+              >
+                <img src={answerImg} alt="Dar destaque a pergunta" />
               </button>
               <button
                 type="button"
                 onClick={() => handleOpenModalConfirmation(question.id)}
               >
-                <img src={answerImg} alt="Answer question" />
-              </button>
-              <button
-                type="button"
-                onClick={() => handleOpenModalConfirmation(question.id)}
-              >
-                <img src={deleteImg} alt="Delete question" />
+                <img src={deleteImg} alt="Remover pergunta" />
               </button>
             </Question>
           ))}
